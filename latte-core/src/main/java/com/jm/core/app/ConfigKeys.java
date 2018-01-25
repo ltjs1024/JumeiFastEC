@@ -10,6 +10,7 @@ public enum ConfigKeys {
     APPLICATION_CONTEXT,
     CONFIG_READY,
     HANDLER,
+    INTERCEPTOR,
     ICONS
 
 }
