@@ -1,16 +1,13 @@
 package com.jm.fastec;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
+import com.jm.core.activities.ProxyActivity;
+import com.jm.core.delegates.LatteDelegate;
 
-public class ExampleActivity extends AppCompatActivity {
+public class ExampleActivity extends ProxyActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-
-
+    public LatteDelegate setRootDelegate() {
+        return new ExampleDelegate();
     }
 }
