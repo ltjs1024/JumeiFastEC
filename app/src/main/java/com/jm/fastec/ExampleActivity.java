@@ -11,7 +11,6 @@ public class ExampleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_example);
 
-        Toast.makeText(Latte.getApplicationContext(), "hahahah", Toast.LENGTH_SHORT).show();
 
     }
 }
