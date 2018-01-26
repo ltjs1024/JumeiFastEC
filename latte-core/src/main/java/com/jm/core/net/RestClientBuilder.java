@@ -6,6 +6,7 @@ import com.jm.core.net.callback.IError;
 import com.jm.core.net.callback.IFailure;
 import com.jm.core.net.callback.IRequest;
 import com.jm.core.net.callback.ISuccess;
+import com.jm.core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.WeakHashMap;
@@ -19,18 +20,18 @@ import okhttp3.ResponseBody;
 
 public class RestClientBuilder {
     private WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
-    private String mUrl;
-    private ResponseBody mBody;
-    private ISuccess mSuccess;
-    private IError mError;
-    private IFailure mFailure;
-    private IRequest mRequest;
-    private File mFile;
-    private String mDir;
-    private String mExtension;
-    private String mName;
-    private IRequest mIRequest;
-    private Context mContext;
+    private String mUrl = null;
+    private ResponseBody mBody = null;
+    private ISuccess mSuccess = null;
+    private IError mError = null;
+    private IFailure mFailure = null;
+    private IRequest mRequest = null;
+    private File mFile = null;
+    private String mDir = null;
+    private String mExtension = null;
+    private String mName = null;
+    private LoaderStyle mLoaderStyle = null;
+    private Context mContext = null;
 
     RestClientBuilder() {
 
@@ -82,7 +83,7 @@ public class RestClientBuilder {
     }
 
     public final RestClientBuilder onRequest(IRequest iRequest) {
-        this.mIRequest = iRequest;
+        this.mRequest = iRequest;
         return this;
     }
 
@@ -101,10 +102,22 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder loader(Context context, LoaderStyle loaderStyle) {
+        this.mContext = context;
+        this.mLoaderStyle = loaderStyle;
+        return this;
+    }
+
+    public final RestClientBuilder loader(Context context) {
+        this.mContext = context;
+        this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
+        return this;
+    }
+
 
     public final RestClient build() {
         return new RestClient(mUrl, PARAMS, mDir, mExtension, mName, mBody, mSuccess, mError,
-                mFailure, mRequest, mFile, mContext);
+                mFailure, mRequest, mFile,mLoaderStyle, mContext);
     }
 
 }

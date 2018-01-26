@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jm.core.app.Latte;
 import com.jm.core.delegates.LatteDelegate;
 import com.jm.core.net.RestClient;
@@ -32,11 +33,12 @@ public class ExampleDelegate extends LatteDelegate {
     private void testRetrofit() {
         RestClient.builder()
                 .url("http://wap.faxingw.cn/wapapp.php?g=User&m=text&a=getlist")
+                .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
                         Log.e("TAG", response);
-                        Toast.makeText(Latte.getApplicationContext(), "获取成功！", Toast.LENGTH_SHORT).show();
+//                        ToastUtils.showShort(response);
                     }
                 })
                 .failure(new IFailure() {

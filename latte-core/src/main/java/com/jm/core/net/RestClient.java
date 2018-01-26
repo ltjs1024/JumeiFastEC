@@ -8,6 +8,8 @@ import com.jm.core.net.callback.IRequest;
 import com.jm.core.net.callback.ISuccess;
 import com.jm.core.net.callback.RequestCallback;
 import com.jm.core.net.download.DownloadHandler;
+import com.jm.core.ui.loader.LatteLoader;
+import com.jm.core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
@@ -35,6 +37,7 @@ public class RestClient {
     private final IFailure FAILURE;
     private final IRequest REQUEST;
     private final File FILE;
+    private final LoaderStyle LOADER_STYLE;
     private final Context CONTEXT;
 
 
@@ -49,6 +52,7 @@ public class RestClient {
                IFailure iFailure,
                IRequest iRequest,
                File file,
+               LoaderStyle loaderStyle,
                Context context
     ) {
         this.URL = url;
@@ -62,6 +66,7 @@ public class RestClient {
         this.FAILURE = iFailure;
         this.REQUEST = iRequest;
         this.FILE = file;
+        this.LOADER_STYLE = loaderStyle;
         this.CONTEXT = context;
     }
 
@@ -76,6 +81,10 @@ public class RestClient {
 
         if (REQUEST != null) {
             REQUEST.onRequestStart();
+        }
+
+        if (LOADER_STYLE != null) {
+            LatteLoader.showLoading(CONTEXT, LOADER_STYLE);
         }
 
         switch (method) {
@@ -111,7 +120,12 @@ public class RestClient {
     }
 
     private Callback<String> getRequestCallback() {
-        return new RequestCallback(REQUEST,SUCCESS,FAILURE,ERROR);
+        return new RequestCallback(
+                REQUEST,
+                SUCCESS,
+                FAILURE,
+                ERROR,
+                LOADER_STYLE);
     }
 
     public final void get() {
@@ -120,8 +134,8 @@ public class RestClient {
 
     public final void post() {
         if (BODY == null) {
-        request(HttpMethod.POST);
-        }else {
+            request(HttpMethod.POST);
+        } else {
             if (!PARAMS.isEmpty()) {
                 throw new RuntimeException("params must be null!");
             }

@@ -3,6 +3,8 @@ package com.jm.core.net.callback;
 import android.os.Handler;
 
 import com.jm.core.app.Latte;
+import com.jm.core.ui.loader.LatteLoader;
+import com.jm.core.ui.loader.LoaderStyle;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,13 +21,19 @@ public class RequestCallback implements Callback<String> {
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
     private final IError ERROR;
-//    private final LoaderStyle LOADER_STYLE;
+    private final LoaderStyle LOADER_STYLE;
 
-    public RequestCallback(IRequest request, ISuccess success, IFailure failure, IError error) {
+    public RequestCallback(IRequest request,
+                           ISuccess success,
+                           IFailure failure,
+                           IError error,
+                           LoaderStyle loaderStyle
+    ) {
         this.REQUEST = request;
         this.SUCCESS = success;
         this.FAILURE = failure;
         this.ERROR = error;
+        this.LOADER_STYLE = loaderStyle;
     }
 
     @Override
@@ -47,7 +55,14 @@ public class RequestCallback implements Callback<String> {
     }
 
     private void onRequestFinish() {
-
+        if (LOADER_STYLE != null) {
+            HANDLER.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LatteLoader.stopLoading();
+                }
+            }, 2000);
+        }
 
     }
 
@@ -56,5 +71,7 @@ public class RequestCallback implements Callback<String> {
         if (FAILURE != null) {
             FAILURE.onFailure();
         }
+
+        onRequestFinish();
     }
 }
