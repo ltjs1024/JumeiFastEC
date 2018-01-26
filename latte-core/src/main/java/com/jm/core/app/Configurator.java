@@ -9,6 +9,8 @@ import com.joanzapata.iconify.Iconify;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import okhttp3.Interceptor;
+
 /**
  * 统一配置类
  */
@@ -18,6 +20,7 @@ public final class Configurator {
     private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
     private static final Handler HANDLER = new Handler();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator() {
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY, false);
@@ -61,6 +64,17 @@ public final class Configurator {
         return this;
     }
 
+    public final Configurator withInterceptor(Interceptor interceptor) {
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(ConfigKeys.INTERCEPTOR, INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptors(ArrayList<Interceptor> interceptors) {
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(ConfigKeys.INTERCEPTOR, INTERCEPTORS);
+        return this;
+    }
 
     @SuppressWarnings("unchecked")
     final <T> T getConfiguration(Object key) {

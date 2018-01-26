@@ -32,25 +32,13 @@ public class ExampleDelegate extends LatteDelegate {
 
     private void testRetrofit() {
         RestClient.builder()
-                .url("http://wap.faxingw.cn/wapapp.php?g=User&m=text&a=getlist")
+                .url("http://127.0.0.1/index")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
                         Log.e("TAG", response);
-//                        ToastUtils.showShort(response);
-                    }
-                })
-                .failure(new IFailure() {
-                    @Override
-                    public void onFailure() {
-                        Log.e("TAG", "onFailure");
-                    }
-                })
-                .error(new IError() {
-                    @Override
-                    public void onError(int code, String msg) {
-                        Log.e("TAG", code + "--->" + msg);
+                        ToastUtils.showShort(response);
                     }
                 })
                 .build()
