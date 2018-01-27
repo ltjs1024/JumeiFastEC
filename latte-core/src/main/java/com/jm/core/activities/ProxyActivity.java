@@ -3,6 +3,7 @@ package com.jm.core.activities;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ContentFrameLayout;
 
 import com.jm.core.R;
