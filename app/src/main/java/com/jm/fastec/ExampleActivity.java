@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import com.jm.core.activities.ProxyActivity;
 import com.jm.core.delegates.LatteDelegate;
 import com.jm.ec.launcher.LauncherDelegate;
+import com.jm.ec.sign.SignUpDelegate;
 import com.jm.ui.launcher.LauncherScrollDelegate;
 
 public class ExampleActivity extends ProxyActivity {
@@ -20,6 +21,6 @@ public class ExampleActivity extends ProxyActivity {
 
     @Override
     public LatteDelegate setRootDelegate() {
-        return new LauncherDelegate();
+        return new SignUpDelegate();
     }
 }

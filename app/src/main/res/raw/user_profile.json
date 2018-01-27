@@ -1,0 +1,11 @@
+{
+	"code":0,
+	"message":"OK",
+	"data":{
+		"userId":1,
+		"name":"猿猿",
+		"avatar":"http://wap.faxingw.cn/data/upload/avatar/201712/151235682235090.jpg",
+		"gender":"男",
+		"address":"安徽"
+	}
+}
