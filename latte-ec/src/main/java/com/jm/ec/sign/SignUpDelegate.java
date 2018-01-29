@@ -49,7 +49,7 @@ public class SignUpDelegate extends LatteDelegate {
                     .success(new ISuccess() {
                         @Override
                         public void onSuccess(String response) {
-                            LatteLogger.json("TAG", response);
+                            LatteLogger.json("USER_PROFILE", response);
                         }
                     })
                     .failure(new IFailure() {
@@ -128,6 +128,5 @@ public class SignUpDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-
     }
 }

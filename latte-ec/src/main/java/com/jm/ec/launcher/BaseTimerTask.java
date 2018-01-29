@@ -3,7 +3,8 @@ package com.jm.ec.launcher;
 import java.util.TimerTask;
 
 /**
- * Created by Administrator on 2018/1/27.
+ * BaseTimerTask
+ * Created by ltjs1024 on 2018/1/27.
  */
 
 public class BaseTimerTask extends TimerTask {

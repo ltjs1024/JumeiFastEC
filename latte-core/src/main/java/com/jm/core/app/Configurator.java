@@ -5,6 +5,8 @@ import android.os.Handler;
 import com.blankj.utilcode.util.Utils;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,12 +37,14 @@ public final class Configurator {
         return LATTE_CONFIGS;
     }
 
+
     private static class Holder {
         private static final Configurator INSTANCE = new Configurator();
     }
 
     public final void configure() {
         initIcons();
+        Logger.addLogAdapter(new AndroidLogAdapter());
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY, true);
         Utils.init(Latte.getApplicationContext());
     }
@@ -75,6 +79,12 @@ public final class Configurator {
         LATTE_CONFIGS.put(ConfigKeys.INTERCEPTOR, INTERCEPTORS);
         return this;
     }
+
+    public Configurator withLoaderDelay(long delay) {
+        LATTE_CONFIGS.put(ConfigKeys.LOADER_DELAYED, delay);
+        return this;
+    }
+
 
     @SuppressWarnings("unchecked")
     final <T> T getConfiguration(Object key) {

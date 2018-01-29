@@ -2,7 +2,9 @@ package com.jm.core.net.callback;
 
 import android.os.Handler;
 
+import com.jm.core.app.ConfigKeys;
 import com.jm.core.app.Latte;
+import com.jm.core.net.RestCreator;
 import com.jm.core.ui.loader.LatteLoader;
 import com.jm.core.ui.loader.LoaderStyle;
 
@@ -11,7 +13,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Administrator on 2018/1/25.
+ * 网络请求结果回调
+ * Created by ltjs1024 on 2018/1/25.
  */
 
 public class RequestCallback implements Callback<String> {
@@ -27,8 +30,7 @@ public class RequestCallback implements Callback<String> {
                            ISuccess success,
                            IFailure failure,
                            IError error,
-                           LoaderStyle loaderStyle
-    ) {
+                           LoaderStyle loaderStyle) {
         this.REQUEST = request;
         this.SUCCESS = success;
         this.FAILURE = failure;
@@ -55,13 +57,15 @@ public class RequestCallback implements Callback<String> {
     }
 
     private void onRequestFinish() {
+        final long delayed = Latte.getConfiguration(ConfigKeys.LOADER_DELAYED);
         if (LOADER_STYLE != null) {
             HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    RestCreator.getParams().clear();
                     LatteLoader.stopLoading();
                 }
-            }, 2000);
+            }, delayed);
         }
 
     }
